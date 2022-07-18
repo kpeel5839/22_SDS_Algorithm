@@ -1,6 +1,5 @@
 package DAY01.P1062;
 
-import java.util.*;
 import java.io.*;
 import java.util.function.Function;
 
@@ -22,7 +21,7 @@ import java.util.function.Function;
  * 그래서 다시 생각을 해보니, 이전 단어들을 다시 탐색할 이유가 전혀 없다라는 것을 기억했다.
  * 그래서 이전 단어들을 다시 탐색하지 않고 depth 부터 실행을 하니 문제를 해결할 수 있었다.
  */
-public class P1062 {
+public class Main {
     static int N;
     static int K;
     static String[] word;
@@ -88,7 +87,7 @@ public class P1062 {
         word = new String[N];
 
         for (int i = 0; i < N; i++) {
-            word[i] = br.readLine(); // 단어를 읽어온다.
+            word[i] = br.readLine().replaceAll("[antic]", ""); // 단어를 읽어온다
         }
 
         learn['a' - 97] = true;
