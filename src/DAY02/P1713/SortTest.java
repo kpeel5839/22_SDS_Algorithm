@@ -31,7 +31,7 @@ public class SortTest {
         System.out.println(list);
 
         Collections.sort(list, Comparator.comparingInt(Item::getB)); // 오름차순
-        Collections.sort(list, Comparator.comparingInt(Item::getB).reversed()); // 내림차순 
+        Collections.sort(list, Comparator.comparingInt(Item::getB).reversed()); // 내림차순
         System.out.println(list);
     }
 }
