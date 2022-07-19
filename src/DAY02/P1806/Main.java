@@ -22,7 +22,7 @@ public class Main {
         int S = fun.apply(input[1]);
         int[] list = new int[N + 1];
         int ans = Integer.MAX_VALUE;
-i
+
         input = br.readLine().split(" ");
         for (int i = 0; i < N; i++) {
             list[i] = fun.apply(input[i]);
