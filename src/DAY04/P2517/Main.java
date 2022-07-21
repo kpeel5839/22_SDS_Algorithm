@@ -8,6 +8,12 @@ import static java.lang.Math.log;
 
 // Samsung SDS Practice
 
+/**
+ * -- 해맸던 점
+ * StringBuilder 안쓰고
+ * System.out.println 써가지고 시간초과에 걸렸다
+ * 역시 System.out.print 는 thread safe 하기 때문에, 느리다.
+ */
 public class Main {
     static int N;
     static int S;
