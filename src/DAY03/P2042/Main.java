@@ -24,7 +24,7 @@ import static java.lang.Math.log;
  * 웬지 리프노드까지 제대로 도달 못하는게 진짜 이상했었음
  * 이걸로 세그먼트 트리 마스터이다.
  *
- * 이건 진짜 금방 구현한다 완전 깨달았다.
+ * 이건 진짜 금방 구현한다 완전 깨달았다. (그림 한번 그려보자마자 아차 했다.)
  */
 public class Main {
     static int S;
