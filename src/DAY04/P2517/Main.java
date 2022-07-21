@@ -12,5 +12,6 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Function<String, Integer> fun = Integer::parseInt;
 
+
     }
 }
