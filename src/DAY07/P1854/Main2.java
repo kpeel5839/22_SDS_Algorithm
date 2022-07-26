@@ -21,11 +21,10 @@ import java.io.*;
  * 그리고 K 가 1 이라면 특수한 상황이다.
  * 시작 정점에 답을 0으로 넣어주자.
  */
-public class Main {
+public class Main2 {
     static int V;
     static int E;
     static int K;
-    static int[] entry;
     static int[] count;
     static int[] res;
     static List<ArrayList<int[]>> graph = new ArrayList<>();
@@ -41,13 +40,11 @@ public class Main {
         E = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
 
-        entry = new int[V + 1];
         count = new int[V + 1];
         res = new int[V + 1];
 
         for (int i = 0; i <= V; i++) {
             graph.add(new ArrayList<>());
-            count[i] = 1;
         }
 
         for (int i = 0; i < E; i++) {
@@ -57,40 +54,21 @@ public class Main {
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
 
-            entry[b]++; // b 로 들어오는 진입차선들
             graph.get(a).add(new int[] {b, c});
         }
 
-        int infCount = 0;
-        for (int i = 1; i <= V; i++) { // 진입차선이 0 인 애들을 res[i] = -1; 해주고 count 해준다.
-            if (entry[i] == 0) {
-                infCount++;
-                res[i] = -1;
-            }
-        }
-
-        int decide = 0;
+        Arrays.fill(res, -1);
         queue.add(new int[] {1, 0});
-//        System.out.println(infCount);
 
         while (!queue.isEmpty()) {
-            if (decide == V - infCount) { // 결정된 애들이 entry 없는애들 제외하고 다 결정되었다가 나오면
-                break;
-            }
-
             int[] p = queue.poll();
-//            System.out.println(Arrays.toString(p));
-//            System.out.println("Count[p[0]] : " + count[p[0]]);
 
-            if (count[p[0]] <= K) { // 작다면?
-                if (count[p[0]] == K) { // 그것중에서 같다면?
-                    count[p[0]]++;
-                    res[p[0]] = p[1];
-                    decide++; // 결정된 애들의 수를 증가시켜준다.
-                } else {
-                    count[p[0]]++;
-                }
+            if (count[p[0]] == K) {
+                continue;
             }
+
+            count[p[0]]++;
+            res[p[0]] = p[1];
 
             for (int[] next : graph.get(p[0])) {
                 queue.add(new int[] {next[0], next[1] + p[1]}); // 다음 정점으로 증가된 값을 넘겨준다.
@@ -99,12 +77,8 @@ public class Main {
 
         StringBuilder sb = new StringBuilder();
 
-        if (K == 1) { // 1 번 정점을 0으로 초기화해줘야 한다.
-            res[1] = 0;
-        }
-
         for (int i = 1; i <= V; i++) {
-            sb.append(res[i] + "\n");
+            sb.append(count[i] == K ? res[i] : -1).append("\n");
         }
 
         System.out.print(sb);
