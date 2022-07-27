@@ -5,12 +5,30 @@ import java.io.*;
 
 // Samsung SDS Practice
 
+/**
+ * 5 8
+ * 0 4
+ * 0 1 1
+ * 0 2 1
+ * 1 3 1
+ * 2 3 1
+ * 3 4 1
+ * 0 4 6
+ * 1 4 4
+ * 2 4 4
+ * 0 0
+ *
+ * 나를 살려준 반례
+ *
+ * dfs, bfs 버전 둘 다 방문처리만 잘 해주면 맞음
+ */
 public class Main {
     static int V;
     static int E;
     static int S;
     static int D;
     static int[] dist;
+    static boolean[] visited;
     static boolean[][] cutRoad;
     static List<ArrayList<int[]>> graph = new ArrayList<>();
     static List<ArrayList<int[]>> tracking = new ArrayList<>();
@@ -52,7 +70,6 @@ public class Main {
     static void bfs(int v, int remain) { // 최솟값을 따라서 진행한다. (tracking 그래프를 써야한다, 그리고 a -> b 를 지울 것을 찾았을 때, b -> a 를 지워줘야 한다)
         // dist[] = remain - 간선 일때만 지워준다.
         Queue<int[]> queue = new LinkedList<>();
-        boolean[] visited = new boolean[V];
         queue.add(new int[] {v, remain});
         visited[v] = true;
 
@@ -72,6 +89,23 @@ public class Main {
                     }
 
                     visited[next[0]] = true;
+                }
+            }
+        }
+    }
+
+    static void dfs(int v, int remain) { // 이 방법도 되는데 너무 느림
+        if (v == S) {
+            return;
+        }
+
+        for (int[] next : tracking.get(v)) {
+            if (dist[next[0]] == remain - next[1]) {
+                cutRoad[next[0]][v] = true;
+
+                if (!visited[next[0]]) {
+                    visited[next[0]] = true;
+                    dfs(next[0], remain - next[1]);
                 }
             }
         }
@@ -122,7 +156,9 @@ public class Main {
             int min = dijkstra(false); // dijkstra 를 통해 얻은 min 최소비용을 이용해서 cutRoad 를 채워놓는다.
 
             if (min != -1) {
-                bfs(D, min);
+                visited = new boolean[V];
+//                bfs(D, min);
+                dfs(D, min); // 이 방법도 되는데 너무 느림
                 dist = new int[V];
                 Arrays.fill(dist, Integer.MAX_VALUE);
                 sb.append(dijkstra(true)).append("\n"); // 없는 경우 -1을 출력한다.
