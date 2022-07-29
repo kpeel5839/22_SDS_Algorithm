@@ -14,7 +14,7 @@ public class Main {
 
     static int dfs(int bit, int on) { // bit == 현재 켜져있는 것들, on == 켜져있는 발전소의 개수
 //        System.out.println(on);
-        if (on == P) {
+        if (on >= P) {
             return 0;
         } // 다 켜진 경우 끝내준다.
 
@@ -34,7 +34,6 @@ public class Main {
 
                 for (int j = 0; j < N; j++) {
                     if ((bit & (1 << j)) != 0) {
-                        System.out.println("fucking!");
                         min = Math.min(min, map[j][i]);
                     }
                 }
@@ -76,6 +75,7 @@ public class Main {
             }
         }
 
-        System.out.println(dfs(bit, on));
+        int res = dfs(bit, on);
+        System.out.println(res == INF ? -1 : res);
     }
 }
